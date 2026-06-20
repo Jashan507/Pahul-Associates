@@ -1,36 +1,99 @@
 /* ============================================================
-   Process Section / Slider
+   Process Section / Scroll-Driven Slider CSS
    ============================================================ */
 
-/* Track bar */
+/* Section wrapper — establishes scroll track for ALL viewports */
+.process-section-wrapper {
+  position: relative;
+  background: var(--navy-dark);
+  height: 400vh;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Moving radial flare backdrop */
+.process-bg-glow {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(201, 169, 98, 0.12) 0%, rgba(31, 58, 92, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+  will-change: left;
+}
+
+
+.process-sticky-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+  z-index: 2;
+}
+
+.process-sticky-container .container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  justify-content: center;
+  gap: 0;
+}
+
+/* Compact section header (inside sticky container) */
+.process-compact-header {
+  text-align: center;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.process-section-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--white);
+  font-family: var(--font-heading);
+  margin-top: 6px;
+  letter-spacing: -0.3px;
+}
+
+/* Steps track bar */
 .process-track-bar {
   position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 48px;
-  padding-top: 8px;
+  margin-bottom: 20px;
+  padding-top: 6px;
+  flex-shrink: 0;
+  z-index: 3;
 }
 
 .process-track-bar::before {
   content: "";
   position: absolute;
-  top: 28px;
+  top: 24px;
   left: 0;
   right: 0;
   height: 2px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.1);
   z-index: 0;
 }
 
 .process-track-line {
   position: absolute;
-  top: 28px;
+  top: 24px;
   left: 0;
   height: 2px;
   background: var(--gold);
   z-index: 1;
-  transition: width 0.5s ease;
 }
 
 .process-track-step {
@@ -39,7 +102,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: none;
   border: none;
   cursor: pointer;
@@ -47,39 +110,40 @@
 }
 
 .process-track-num {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  border: 2px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.4);
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .process-track-step.active .process-track-num {
   background: var(--gold);
   border-color: var(--gold);
-  color: var(--navy);
-  box-shadow: 0 0 20px rgba(201, 169, 98, 0.5);
+  color: var(--navy-dark);
+  box-shadow: 0 0 24px rgba(201, 169, 98, 0.6);
+  transform: scale(1.1);
 }
 
 .process-track-step.done .process-track-num {
   background: var(--gold);
   border-color: var(--gold);
-  color: var(--navy);
+  color: var(--navy-dark);
 }
 
 .process-track-label {
   font-family: var(--font-heading);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.35);
   text-align: center;
   transition: color 0.4s ease;
   white-space: nowrap;
@@ -95,30 +159,34 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 32px;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex: 1;
+  min-height: 0;
+  z-index: 3;
 }
 
 .process-nav {
   flex-shrink: 0;
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
   color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition);
-  z-index: 2;
+  z-index: 5;
+  flex-shrink: 0;
 }
 
 .process-nav:hover {
   background: var(--gold);
   border-color: var(--gold);
-  color: var(--navy);
+  color: var(--navy-dark);
   transform: scale(1.08);
 }
 
@@ -126,117 +194,134 @@
   flex: 1;
   overflow: hidden;
   position: relative;
-  min-height: 280px;
-}
-
-.process-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: translateX(60px);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-}
-
-.process-slide.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: all;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
 }
 
 .process-slide-inner {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+}
+
+/* 2-Column Split Layout */
+.process-grid-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
   align-items: center;
-  text-align: center;
-  max-width: 650px;
-  margin: 0 auto;
-  height: 100%;
 }
 
-.process-slide-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.process-step-badge {
-  font-family: var(--font-heading);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(201, 169, 98, 0.12);
-  border: 1px solid rgba(201, 169, 98, 0.2);
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-}
-
-.process-icon {
-  width: 80px;
-  height: 80px;
-  background: rgba(201, 169, 98, 0.1);
-  border-radius: var(--radius-md);
+/* Left Column: Animated SVG Visual */
+.process-visual-column {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold);
 }
 
-.process-icon svg {
-  width: 44px;
-  height: 44px;
+.process-visual-wrapper {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+  background: rgba(31, 58, 92, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  backdrop-filter: blur(8px);
 }
 
-.process-timeline {
-  display: flex;
+.process-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Right Column: Glassmorphism Details Card */
+.process-text-column {
+  background: rgba(22, 43, 68, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  text-align: left;
+}
+
+/* Badge */
+.process-step-badge {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-heading);
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.6);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  background: rgba(201, 169, 98, 0.12);
+  border: 1px solid rgba(201, 169, 98, 0.2);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
-.process-slide-right {}
+.badge-divider {
+  opacity: 0.3;
+  color: var(--white);
+}
+
+.badge-duration {
+  color: var(--white);
+  opacity: 0.8;
+}
 
 .process-step-title {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--white);
   font-family: var(--font-heading);
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
 }
 
 .process-step-divider {
-  width: 50px;
+  width: 40px;
   height: 3px;
   background: var(--gold);
   border-radius: 2px;
-  margin: 0 auto 20px;
+  margin-bottom: 14px;
 }
 
 .process-step-desc {
-  font-size: 16px;
-  color: rgba(255,255,255,0.7);
-  line-height: 1.8;
-  max-width: 520px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
 }
 
-/* Dots */
+.process-card-footer {
+  display: flex;
+  margin-top: 20px;
+}
+
+
 .process-dots {
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-shrink: 0;
+  z-index: 3;
+  position: relative;
 }
 
 .process-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   cursor: pointer;
   transition: all var(--transition);
@@ -244,28 +329,136 @@
 }
 
 .process-dot.active {
-  width: 28px;
-  border-radius: 5px;
+  width: 24px;
+  border-radius: 4px;
   background: var(--gold);
+  box-shadow: 0 0 10px rgba(201, 169, 98, 0.5);
 }
 
-/* Responsive */
+/* ===== Responsive Overrides ===== */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .process-grid-split {
+    gap: 20px;
+  }
+
+  .process-step-title {
+    font-size: 22px;
+  }
+
+  .process-text-column {
+    padding: 24px;
+  }
+
+  .process-visual-wrapper {
+    max-width: 280px;
+  }
+
+  .process-track-label {
+    font-size: 10px;
+  }
+}
+
 @media (max-width: 767px) {
   .process-track-label {
     display: none;
   }
+
   .process-track-num {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
   }
+
+  .process-track-bar {
+    margin-bottom: 12px;
+    padding-top: 4px;
+  }
+
+  .process-track-bar::before {
+    top: 20px;
+  }
+
+  .process-track-line {
+    top: 20px;
+  }
+
+  /* Show nav arrows on mobile for tap navigation */
   .process-nav {
-    display: none;
+    display: flex;
+    width: 36px;
+    height: 36px;
   }
+
+  .process-slider-container {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  /* Single column on mobile */
+  .process-grid-split {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .process-visual-column {
+    order: 1;
+  }
+
+  .process-text-column {
+    order: 2;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .process-step-badge {
+    justify-content: center;
+  }
+
+  .process-step-divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Smaller visual panel on mobile */
+  .process-visual-wrapper {
+    max-width: 200px;
+    margin: 0 auto;
+    padding: 8px;
+  }
+
   .process-step-title {
-    font-size: 24px;
+    font-size: 20px;
+    margin-bottom: 6px;
   }
+
+  .process-step-desc {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .process-section-title {
+    font-size: 22px;
+  }
+
+  .process-compact-header {
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .process-bg-glow {
+    width: 250px;
+    height: 250px;
+  }
+
   .process-slides {
-    min-height: 340px;
+    min-height: 0;
+  }
+
+  .process-card-footer {
+    justify-content: center;
+  }
+
+  .process-dots {
+    margin-top: 4px;
   }
 }

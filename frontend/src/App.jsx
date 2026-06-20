@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Stats from "./components/Stats";
+import Showcase from "./components/Showcase";
 import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
 import ProcessSlider from "./components/ProcessSlider";
@@ -27,7 +27,7 @@ function App() {
 
       <main id="main-content">
         <Hero onAnimationComplete={handleAnimationComplete} />
-        <Stats />
+        <Showcase />
         <Services />
         <Portfolio />
         <ProcessSlider />

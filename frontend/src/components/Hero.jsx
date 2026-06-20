@@ -1,8 +1,78 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import bgVideo from "../assets/videos/home-background.mp4";
 import logoMark from "../assets/images/logo_mark.png";
 import logoText from "../assets/images/logo_text.png";
 import "./Hero.css";
+
+/* ── StatCounter Component for Animated Counting Effect ── */
+const StatCounter = ({ target, suffix }) => {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    let animationFrameId;
+    let observer;
+
+    const startAnimation = () => {
+      const end = parseInt(target, 10);
+      if (isNaN(end)) return;
+
+      const duration = 1500; // 1.5 seconds animation duration
+      const startTime = performance.now();
+
+      const animate = (currentTime) => {
+        const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+        
+        // Easing: easeOutQuad slowing down near the end
+        const easedProgress = progress * (2 - progress);
+        
+        const currentCount = Math.floor(easedProgress * end);
+        setCount(currentCount);
+
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(animate);
+        } else {
+          setCount(end);
+        }
+      };
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startAnimation();
+        } else {
+          // Reset to 0 when out of view so it animates again when user scrolls back
+          setCount(0);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (observer && elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [target]);
+
+  return (
+    <strong ref={elementRef}>
+      {count}
+      {suffix}
+    </strong>
+  );
+};
 
 /* ── Hero Component ─────────────────────────────────────────────── */
 const Hero = ({ onAnimationComplete }) => {
@@ -87,11 +157,20 @@ const Hero = ({ onAnimationComplete }) => {
             </button>
           </div>
           <div className="hero-stats">
-            <div className="hero-stat"><strong>25+</strong><span>Years</span></div>
+            <div className="hero-stat">
+              <StatCounter target={25} suffix="+" />
+              <span>Years</span>
+            </div>
             <div className="hero-stat-divider" />
-            <div className="hero-stat"><strong>250+</strong><span>Projects</span></div>
+            <div className="hero-stat">
+              <StatCounter target={250} suffix="+" />
+              <span>Projects</span>
+            </div>
             <div className="hero-stat-divider" />
-            <div className="hero-stat"><strong>99%</strong><span>Satisfaction</span></div>
+            <div className="hero-stat">
+              <StatCounter target={99} suffix="%" />
+              <span>Satisfaction</span>
+            </div>
           </div>
         </div>
 

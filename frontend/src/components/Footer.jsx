@@ -113,9 +113,7 @@ const Footer = () => {
           <p className="footer-copyright">
             © 2026 {company.name}. All rights reserved.
           </p>
-          <p className="footer-credit">
-            Crafted with <span>♥</span> in Ludhiana, Punjab
-          </p>
+
         </div>
       </div>
     </footer>
