@@ -1,5 +1,5 @@
 /* ============================================================
-   Hero Section Styles
+   Hero Section — Logo Animation + Hero Content
    ============================================================ */
 
 .hero-section {
@@ -9,7 +9,10 @@
   overflow: hidden;
 }
 
-/* ---- Logo Overlay ---- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LOGO OVERLAY — fully transparent, no background on logo
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
 .logo-overlay {
   position: fixed;
   inset: 0;
@@ -17,8 +20,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(31, 58, 92, 0.96);
-  transition: opacity 0.8s ease, background 0.8s ease;
+  /* Navy backdrop — only the overlay bg, the logo itself is transparent */
+  background: rgb(18, 35, 58);
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo-overlay.fade-out {
@@ -26,66 +30,173 @@
   pointer-events: none;
 }
 
+/* Blueprint grid — decorative lines */
 .blueprint-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(201, 169, 98, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201, 169, 98, 0.08) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: fadeIn 0.5s ease;
+    linear-gradient(rgba(201, 169, 98, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 169, 98, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridFadeIn 1s ease forwards;
 }
 
-.logo-container {
+@keyframes gridFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Logo animation wrapper — TRANSPARENT, no bg ── */
+.logo-anim-wrap {
   position: relative;
   z-index: 10;
-  transition: all 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-.center-logo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: scaleIn 0.5s ease;
+  gap: 16px;
+  /* NO background, NO border-radius, NO box-shadow on this element */
+  background: transparent;
+  transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.fly-to-header {
+/* Fly to header position on transition */
+.logo-anim-wrap.fly-to-header {
   position: fixed;
-  top: 12px;
-  left: 24px;
-  transform: scale(0.35);
+  top: 10px;
+  left: 20px;
+  transform: scale(0.28);
   transform-origin: top left;
 }
 
-.logo-video {
-  width: 420px;
-  max-width: 85vw;
-  filter: drop-shadow(0 0 40px rgba(201, 169, 98, 0.5));
+/* ── Ambient glow ring (purely decorative radial glow) ── */
+.logo-glow-ring {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(201, 169, 98, 0.18) 0%,
+    rgba(201, 169, 98, 0.06) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: glowPulse 3s ease-in-out infinite;
 }
 
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+/* ── PNG Logo Mark ── */
+.logo-mark-wrap {
+  animation: markEntrance 1000ms cubic-bezier(0.34, 1.56, 0.64, 1) 200ms both;
+}
+
+.logo-mark-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(68%) sepia(35%) saturate(842%) hue-rotate(357deg) brightness(88%) contrast(85%)
+          drop-shadow(0 0 24px rgba(201, 169, 98, 0.55))
+          drop-shadow(0 0 8px rgba(201, 169, 98, 0.3));
+}
+
+@keyframes markEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.72) rotate(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ── Brand text ── */
+.logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: textEntrance 900ms cubic-bezier(0.34, 1.56, 0.64, 1) 480ms both;
+}
+
+@keyframes textEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    letter-spacing: 0.1em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: normal;
+  }
+}
+
+.logo-text-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1)
+          drop-shadow(0 0 24px rgba(255, 255, 255, 0.25));
+  margin-bottom: 4px;
+}
+
+.logo-tagline {
+  font-family: "Poppins", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: rgba(201, 169, 98, 0.85);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── Decorative horizontal rule ── */
+.logo-rule {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A962, transparent);
+  animation: ruleExpand 800ms ease 700ms both;
+}
+
+@keyframes ruleExpand {
+  from { width: 0; opacity: 0; }
+  to   { width: 240px; opacity: 1; }
+}
+
+/* ── Skip button ── */
 .skip-btn {
   position: absolute;
   bottom: 32px;
   right: 32px;
-  background: rgba(201, 169, 98, 0.15);
-  border: 1px solid rgba(201, 169, 98, 0.4);
-  color: var(--gold);
-  font-family: var(--font-heading);
-  font-size: 13px;
+  background: rgba(201, 169, 98, 0.12);
+  border: 1px solid rgba(201, 169, 98, 0.35);
+  color: rgba(201, 169, 98, 0.9);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
   font-weight: 500;
-  padding: 10px 20px;
-  border-radius: var(--radius-full);
+  padding: 9px 20px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.25s ease;
   letter-spacing: 0.5px;
+  animation: fadeIn 0.5s ease 1.2s both;
 }
 
 .skip-btn:hover {
-  background: rgba(201, 169, 98, 0.3);
+  background: rgba(201, 169, 98, 0.25);
+  border-color: rgba(201, 169, 98, 0.6);
   transform: translateY(-2px);
 }
 
-/* ---- Hero Content ---- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HERO CONTENT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
 .hero-content {
   position: relative;
   min-height: 100vh;
@@ -94,14 +205,13 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.9s ease;
 }
 
 .hero-content.visible {
   opacity: 1;
 }
 
-/* Background Video */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -119,60 +229,59 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(31, 58, 92, 0.88) 0%,
-    rgba(31, 58, 92, 0.70) 50%,
-    rgba(22, 43, 68, 0.85) 100%
+    rgba(18, 35, 58, 0.90) 0%,
+    rgba(31, 58, 92, 0.72) 50%,
+    rgba(18, 35, 58, 0.88) 100%
   );
 }
 
-/* Text Content */
 .hero-text {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 800px;
+  max-width: 820px;
   padding: 0 24px;
-  animation: fadeUp 0.8s ease 0.2s both;
+  animation: fadeUp 0.9s ease 0.2s both;
 }
 
 .hero-eyebrow {
   display: inline-block;
-  font-family: var(--font-heading);
-  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 3.5px;
   text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(201, 169, 98, 0.12);
-  border: 1px solid rgba(201, 169, 98, 0.3);
-  padding: 8px 20px;
-  border-radius: var(--radius-full);
+  color: #C9A962;
+  background: rgba(201, 169, 98, 0.10);
+  border: 1px solid rgba(201, 169, 98, 0.28);
+  padding: 8px 22px;
+  border-radius: 50px;
   margin-bottom: 24px;
-  animation: fadeDown 0.6s ease 0.4s both;
+  animation: fadeDown 0.7s ease 0.4s both;
 }
 
 .hero-title {
-  font-size: clamp(40px, 7vw, 76px);
+  font-size: clamp(38px, 7vw, 78px);
   font-weight: 800;
-  color: var(--white);
-  line-height: 1.1;
+  color: #ffffff;
+  line-height: 1.08;
   margin-bottom: 24px;
-  animation: fadeUp 0.8s ease 0.5s both;
+  animation: fadeUp 0.9s ease 0.5s both;
 }
 
 .hero-title-accent {
-  color: var(--gold);
-  font-family: var(--font-display);
+  color: #C9A962;
+  font-family: "Playfair Display", serif;
   font-style: italic;
 }
 
 .hero-subtitle {
-  font-size: clamp(16px, 2vw, 19px);
-  color: rgba(255, 255, 255, 0.80);
-  line-height: 1.7;
-  max-width: 560px;
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.75;
+  max-width: 540px;
   margin: 0 auto 40px;
-  animation: fadeUp 0.8s ease 0.6s both;
+  animation: fadeUp 0.9s ease 0.62s both;
 }
 
 .hero-actions {
@@ -180,44 +289,41 @@
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 50px;
-  animation: fadeUp 0.8s ease 0.7s both;
+  margin-bottom: 52px;
+  animation: fadeUp 0.9s ease 0.74s both;
 }
 
-/* Hero Stats */
 .hero-stats {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   justify-content: center;
-  animation: fadeUp 0.8s ease 0.8s both;
+  animation: fadeUp 0.9s ease 0.86s both;
 }
 
-.hero-stat {
-  text-align: center;
-}
+.hero-stat { text-align: center; }
 
 .hero-stat strong {
   display: block;
-  font-family: var(--font-heading);
+  font-family: "Poppins", sans-serif;
   font-size: 28px;
   font-weight: 800;
-  color: var(--gold);
+  color: #C9A962;
   line-height: 1;
 }
 
 .hero-stat span {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 1px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   font-weight: 500;
 }
 
 .hero-stat-divider {
   width: 1px;
-  height: 36px;
-  background: rgba(255, 255, 255, 0.2);
+  height: 38px;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* Scroll Indicator */
@@ -231,12 +337,12 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  animation: fadeIn 1s ease 1.2s both;
+  animation: fadeIn 1s ease 1.3s both;
 }
 
 .scroll-indicator span {
   font-size: 11px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.45);
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 500;
@@ -245,42 +351,133 @@
 .scroll-mouse {
   width: 24px;
   height: 38px;
-  border: 2px solid rgba(255,255,255,0.4);
+  border: 1.5px solid rgba(255,255,255,0.35);
   border-radius: 12px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 4px;
+  padding: 5px;
 }
 
 .scroll-wheel {
   width: 3px;
   height: 8px;
-  background: var(--gold);
+  background: #C9A962;
   border-radius: 2px;
-  animation: bounce-down 1.5s ease infinite;
+  animation: bounce-down 1.6s ease infinite;
 }
 
-/* ---- Responsive ---- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
 @media (max-width: 767px) {
-  .logo-video {
-    width: 280px;
+  .logo-mark-img {
+    width: 90px;
+    height: 90px;
   }
 
-  .fly-to-header {
-    transform: scale(0.25);
+  .logo-text-img {
+    height: 28px;
+  }
+
+  .logo-tagline {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .logo-glow-ring {
+    width: 160px;
+    height: 160px;
+  }
+
+  .logo-anim-wrap.fly-to-header {
+    transform: scale(0.22);
+  }
+
+  .hero-content {
+    padding-top: 105px;
+    padding-bottom: 65px;
+    justify-content: flex-start;
+  }
+
+  .hero-text {
+    padding: 0 16px;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 8vw, 40px);
+    margin-bottom: 16px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0 auto 24px;
+    max-width: 320px;
   }
 
   .hero-actions {
     flex-direction: column;
     align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 24px;
+    font-size: 14px;
   }
 
   .hero-stats {
-    gap: 14px;
+    gap: 16px;
+    width: 100%;
   }
 
   .hero-stat strong {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .hero-stat span {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .hero-stat-divider {
+    height: 28px;
+  }
+
+  .scroll-mouse {
+    display: none;
+  }
+
+  .scroll-indicator {
+    bottom: 16px;
+    gap: 0;
+  }
+
+  .scroll-indicator span {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-mark-wrap,
+  .logo-text-wrap,
+  .logo-rule,
+  .logo-glow-ring {
+    animation: none !important;
+    opacity: 1;
   }
 }

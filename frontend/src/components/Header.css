@@ -86,6 +86,9 @@
 .header:not(.scrolled) .header-logo-tagline {
   color: var(--gold-light);
 }
+.header:not(.scrolled) .header-logo-img {
+  filter: brightness(0) invert(1);
+}
 
 /* Nav */
 .header-nav {

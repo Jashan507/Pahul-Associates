@@ -126,48 +126,31 @@ const ProcessSlider = () => {
                 className={`process-slide ${i === current ? "active" : ""}`}
               >
                 <div className="process-slide-inner">
-                  <div className="process-slide-left">
-                    <div className="process-step-badge">
-                      Step {step.step} of {processSteps.length}
-                    </div>
-                    <div className="process-icon">
-                      {ProcessIcons[step.icon]}
-                    </div>
-                    <div className="process-timeline">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
+                  <h3 className="process-step-title">{step.title}</h3>
+                  <div className="process-step-divider" />
+                  <p className="process-step-desc">{step.description}</p>
+                  {i < processSteps.length - 1 && (
+                    <button
+                      className="btn btn-gold-outline mt-24"
+                      onClick={next}
+                    >
+                      Next: {processSteps[i + 1].title}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M9 18l6-6-6-6" />
                       </svg>
-                      {step.timeline}
-                    </div>
-                  </div>
-                  <div className="process-slide-right">
-                    <h3 className="process-step-title">{step.title}</h3>
-                    <div className="process-step-divider" />
-                    <p className="process-step-desc">{step.description}</p>
-                    {i < processSteps.length - 1 && (
-                      <button
-                        className="btn btn-gold-outline mt-24"
-                        onClick={next}
-                      >
-                        Next: {processSteps[i + 1].title}
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <path d="M9 18l6-6-6-6" />
-                        </svg>
-                      </button>
-                    )}
-                    {i === processSteps.length - 1 && (
-                      <button
-                        className="btn btn-primary mt-24"
-                        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                      >
-                        Start Your Project
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
+                    </button>
+                  )}
+                  {i === processSteps.length - 1 && (
+                    <button
+                      className="btn btn-primary mt-24"
+                      onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                    >
+                      Start Your Project
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

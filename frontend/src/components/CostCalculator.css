@@ -401,32 +401,6 @@
   justify-content: center;
 }
 
-/* Features */
-.calc-features {
-  background: var(--white);
-  border: 1px solid var(--mid-gray);
-  border-radius: var(--radius-md);
-  padding: 20px 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.calc-feature {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--dark-gray);
-  font-family: var(--font-heading);
-}
-
-.calc-feature svg {
-  color: var(--success);
-  flex-shrink: 0;
-}
-
 .w-full {
   width: 100%;
   justify-content: center;
