@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from "../assets/images/logo_mark.png";
+import logo from "../assets/images/logo_full.png";
 import "./Header.css";
 import { company } from "../data/config";
 
@@ -54,7 +54,6 @@ const Header = ({ visible }) => {
     <>
       <header className={`header ${scrolled ? "scrolled" : ""} ${visible ? "header-visible" : ""}`}>
         <div className="container header-inner">
-          {/* Logo */}
           <a
             href="#home"
             className="header-logo"
@@ -62,10 +61,6 @@ const Header = ({ visible }) => {
             aria-label="Pahul Associates Home"
           >
             <img src={logo} alt="Pahul Associates Logo" className="header-logo-img" />
-            <div className="header-logo-text">
-              <span className="header-logo-name">Pahul Associates</span>
-              <span className="header-logo-tagline">Architecture & Design</span>
-            </div>
           </a>
 
           {/* Desktop Nav */}

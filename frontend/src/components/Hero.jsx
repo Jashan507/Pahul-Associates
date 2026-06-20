@@ -42,21 +42,8 @@ const Hero = ({ onAnimationComplete }) => {
             {/* Brand name */}
             <div className="logo-text-wrap">
               <img src={logoText} alt="PAHUL ASSOCIATES" className="logo-text-img" />
-              <span className="logo-tagline">Architecture &amp; Interior Design</span>
             </div>
-
-            {/* Decorative horizontal rule */}
-            <div className="logo-rule" aria-hidden="true" />
           </div>
-
-          {/* Skip button */}
-          <button
-            className="skip-btn"
-            onClick={startTransition}
-            aria-label="Skip intro animation"
-          >
-            Skip Intro ↓
-          </button>
         </div>
       )}
 

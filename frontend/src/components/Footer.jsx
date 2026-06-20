@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/images/logo_mark.png";
+import logo from "../assets/images/logo_full.png";
 import { company } from "../data/config";
 import "./Footer.css";
 
@@ -31,8 +31,6 @@ const Footer = () => {
           {/* Col 1 */}
           <div className="footer-brand">
             <img src={logo} alt="Pahul Associates" className="footer-logo" />
-            <p className="footer-brand-name">{company.name}</p>
-            <p className="footer-brand-tagline">Premium Architecture &amp; Design</p>
             <p className="footer-brand-desc">
               Transforming spaces and elevating lives through innovative architectural
               design for over 25 years.

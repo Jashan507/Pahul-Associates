@@ -334,8 +334,21 @@
 }
 
 @media (max-width: 767px) {
+  .header {
+    padding: 12px 0;
+  }
+  .header.scrolled {
+    padding: 8px 0;
+  }
+  .header-logo-img {
+    height: 34px;
+  }
   .header-logo-text {
     display: none;
+  }
+  .header-actions .btn-sm {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 }
 
