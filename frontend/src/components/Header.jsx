@@ -12,7 +12,7 @@ const navLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
-const Header = ({ visible }) => {
+const Header = ({ visible, logoRef }) => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -57,6 +57,7 @@ const Header = ({ visible }) => {
           <a
             href="#home"
             className="header-logo"
+            ref={logoRef}
             onClick={(e) => { e.preventDefault(); scrollTo("#home"); }}
             aria-label="Pahul Associates Home"
           >

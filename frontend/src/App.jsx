@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./index.css";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -13,6 +13,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 
 function App() {
   const [headerVisible, setHeaderVisible] = useState(false);
+  const headerLogoRef = useRef(null);
 
   const handleAnimationComplete = () => {
     setHeaderVisible(true);
@@ -23,10 +24,10 @@ function App() {
       {/* Skip to main content (accessibility) */}
       <a href="#home" className="skip-link">Skip to main content</a>
 
-      <Header visible={headerVisible} />
+      <Header visible={headerVisible} logoRef={headerLogoRef} />
 
       <main id="main-content">
-        <Hero onAnimationComplete={handleAnimationComplete} />
+        <Hero onAnimationComplete={handleAnimationComplete} headerLogoRef={headerLogoRef} />
         <Showcase />
         <Services />
         <Portfolio />
