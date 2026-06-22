@@ -110,7 +110,7 @@ const InquiryForm = () => {
           <div className="inquiry-info">
             <h3 className="inquiry-info-title">Let's Create Something Extraordinary</h3>
             <p className="inquiry-info-text">
-              With 25+ years of experience and 250+ completed projects, Pahul Associates
+              With 25+ years of experience and 1500+ completed projects, Pahul Associates
               is ready to bring your architectural vision to life.
             </p>
 

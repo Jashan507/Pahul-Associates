@@ -1,4 +1,8 @@
 // Pahul Associates — Central Data Configuration
+import project6 from "../assets/images/project_6.jpg";
+import project2 from "../assets/images/project_2.jpg";
+import project9 from "../assets/images/project_9.jpg";
+import project10 from "../assets/images/project_10.jpg";
 
 export const company = {
   name: "Pahul Associates",
@@ -13,7 +17,7 @@ export const company = {
 
 export const stats = [
   { value: 25, suffix: "+", label: "Years of Experience", icon: "🏛️" },
-  { value: 250, suffix: "+", label: "Projects Completed", icon: "🏗️" },
+  { value: 1500, suffix: "+", label: "Projects Completed", icon: "🏗️" },
   { value: 99, suffix: "%", label: "Client Satisfaction", icon: "⭐" },
 ];
 
@@ -79,22 +83,13 @@ export const services = [
 export const projects = [
   {
     id: 1,
-    title: "Luxury Apartment Complex",
-    subtitle: "2000 sq.ft Residential",
+    title: "Elegant Classical Mansion",
+    subtitle: "Ludhiana — 7,200 sq.ft Residential",
     category: "Residential 3D",
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop&q=80",
+    image: project6,
   },
   {
     id: 2,
-    title: "Modern Office Tower",
-    subtitle: "Commercial — 15,000 sq.ft",
-    category: "Commercial",
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80",
-  },
-  {
-    id: 3,
     title: "Heritage Villa Renovation",
     subtitle: "Residential Restoration",
     category: "Renovation",
@@ -102,28 +97,33 @@ export const projects = [
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop&q=80",
   },
   {
+    id: 3,
+    title: "Premium Contemporary Villa",
+    subtitle: "Ludhiana — 4,800 sq.ft Residential",
+    category: "Residential 3D",
+    image: project2,
+  },
+  {
     id: 4,
-    title: "Boutique Hotel Lobby",
-    subtitle: "Interior — 3,500 sq.ft",
-    category: "Interior Design",
-    image:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop&q=80",
+    title: "Minimalist Modern House",
+    subtitle: "Residential — 3,600 sq.ft",
+    category: "Residential 3D",
+    image: project9,
   },
   {
     id: 5,
-    title: "Penthouse Suite",
-    subtitle: "Luxury Residential",
-    category: "Residential 3D",
+    title: "Modern Office Tower",
+    subtitle: "Commercial — 15,000 sq.ft",
+    category: "Commercial",
     image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80",
   },
   {
     id: 6,
-    title: "Corporate Headquarters",
-    subtitle: "Mixed-Use — 25,000 sq.ft",
-    category: "Mixed-Use",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&q=80",
+    title: "Luxury Dwelling Interiors",
+    subtitle: "Residential — 5,000 sq.ft",
+    category: "Interior Design",
+    image: project10,
   },
 ];
 

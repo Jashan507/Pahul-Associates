@@ -5,11 +5,16 @@ import logoText from "../assets/images/logo_text.png";
 import "./Hero.css";
 
 /* ── StatCounter Component for Animated Counting Effect ── */
-const StatCounter = ({ target, suffix }) => {
+const StatCounter = ({ target, suffix, startTrigger }) => {
   const [count, setCount] = useState(0);
   const elementRef = useRef(null);
 
   useEffect(() => {
+    if (!startTrigger) {
+      setCount(0);
+      return;
+    }
+
     let animationFrameId;
     let observer;
 
@@ -17,15 +22,15 @@ const StatCounter = ({ target, suffix }) => {
       const end = parseInt(target, 10);
       if (isNaN(end)) return;
 
-      const duration = 1500; // 1.5 seconds animation duration
+      const duration = 800; // 800ms animation duration for snappy feel
       const startTime = performance.now();
 
       const animate = (currentTime) => {
         const elapsedTime = currentTime - startTime;
         const progress = Math.min(elapsedTime / duration, 1);
         
-        // Easing: easeOutQuad slowing down near the end
-        const easedProgress = progress * (2 - progress);
+        // Easing: easeOutCubic for a smoother and faster deceleration
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
         
         const currentCount = Math.floor(easedProgress * end);
         setCount(currentCount);
@@ -64,7 +69,7 @@ const StatCounter = ({ target, suffix }) => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [target]);
+  }, [target, startTrigger]);
 
   return (
     <strong ref={elementRef}>
@@ -160,17 +165,17 @@ const Hero = ({ onAnimationComplete }) => {
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
-              <StatCounter target={25} suffix="+" />
+              <StatCounter target={25} suffix="+" startTrigger={phase === "hero"} />
               <span>Years</span>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <StatCounter target={250} suffix="+" />
+              <StatCounter target={1500} suffix="+" startTrigger={phase === "hero"} />
               <span>Projects</span>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <StatCounter target={99} suffix="%" />
+              <StatCounter target={99} suffix="%" startTrigger={phase === "hero"} />
               <span>Satisfaction</span>
             </div>
           </div>

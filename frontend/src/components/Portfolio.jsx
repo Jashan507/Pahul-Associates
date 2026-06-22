@@ -78,7 +78,7 @@ const Portfolio = () => {
           <span className="section-label">Our Work</span>
           <h2 className="section-title">Featured Projects</h2>
           <p className="section-subtitle">
-            A curated selection from our portfolio of 250+ completed projects across
+            A curated selection from our portfolio of 1500+ completed projects across
             residential, commercial, and mixed-use developments.
           </p>
           <div className="gold-line" />
