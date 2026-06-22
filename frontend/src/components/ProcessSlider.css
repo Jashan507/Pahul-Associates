@@ -359,45 +359,48 @@
 }
 
 @media (max-width: 767px) {
+  /* Reduce sticky scroll track on mobile */
+  .process-section-wrapper {
+    height: 250vh;
+  }
+
   .process-track-label {
     display: none;
   }
 
   .process-track-num {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     font-size: 11px;
   }
 
   .process-track-bar {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     padding-top: 4px;
   }
 
   .process-track-bar::before {
-    top: 20px;
+    top: 18px;
   }
 
   .process-track-line {
-    top: 20px;
+    top: 18px;
   }
 
-  /* Show nav arrows on mobile for tap navigation */
+  /* Hide nav arrows on mobile — use dots instead */
   .process-nav {
-    display: flex;
-    width: 36px;
-    height: 36px;
+    display: none;
   }
 
   .process-slider-container {
-    gap: 8px;
+    gap: 0;
     margin-bottom: 10px;
   }
 
   /* Single column on mobile */
   .process-grid-split {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .process-visual-column {
@@ -421,13 +424,13 @@
 
   /* Smaller visual panel on mobile */
   .process-visual-wrapper {
-    max-width: 200px;
+    max-width: 160px;
     margin: 0 auto;
-    padding: 8px;
+    padding: 6px;
   }
 
   .process-step-title {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 6px;
   }
 
@@ -437,11 +440,11 @@
   }
 
   .process-section-title {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .process-compact-header {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-align: center;
   }
 
@@ -458,7 +461,21 @@
     justify-content: center;
   }
 
+  .process-card-footer .btn {
+    font-size: 13px;
+    padding: 10px 18px;
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+  }
+
   .process-dots {
-    margin-top: 4px;
+    margin-top: 6px;
+  }
+
+  .process-sticky-container .container {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    gap: 0;
   }
 }

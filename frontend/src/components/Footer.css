@@ -224,4 +224,16 @@
     text-align: center;
     gap: 4px;
   }
+  .footer-brand-name {
+    font-size: 18px;
+  }
+  .footer-brand-desc {
+    font-size: 13px;
+  }
+  .footer-socials {
+    flex-wrap: wrap;
+  }
+  .footer-contact-link {
+    font-size: 13px;
+  }
 }

@@ -147,9 +147,30 @@
 @media (max-width: 767px) {
   .services-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
   .service-card {
-    padding: 24px 20px;
+    padding: 22px 18px;
+  }
+  .service-icon-wrap {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 14px;
+  }
+  .service-name {
+    font-size: 16px;
+  }
+  .service-desc {
+    font-size: 13px;
+  }
+  .services-cta-text {
+    font-size: 14px;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .services-cta .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
   }
 }

@@ -424,6 +424,19 @@
     grid-template-columns: 1fr;
   }
   .calc-result-card {
-    padding: 24px;
+    padding: 20px 16px;
+  }
+  .calc-result-amount {
+    font-size: 28px;
+  }
+  .calc-inputs {
+    gap: 24px;
+  }
+  .calc-area-row {
+    flex-wrap: nowrap;
+  }
+  .calc-reset {
+    align-self: flex-start;
+    margin-top: -8px;
   }
 }

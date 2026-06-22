@@ -335,20 +335,33 @@
 
 @media (max-width: 767px) {
   .header {
-    padding: 12px 0;
+    padding: 10px 0;
   }
   .header.scrolled {
     padding: 8px 0;
   }
   .header-logo-img {
-    height: 34px;
+    height: 32px;
   }
   .header-logo-text {
     display: none;
   }
+  .header-inner {
+    gap: 12px;
+  }
   .header-actions .btn-sm {
     padding: 8px 14px;
     font-size: 12px;
+  }
+}
+
+/* Hide "Get Quote" button on very small phones to prevent crowding */
+@media (max-width: 400px) {
+  .header-actions .btn-sm {
+    display: none;
+  }
+  .header {
+    padding: 10px 0;
   }
 }
 

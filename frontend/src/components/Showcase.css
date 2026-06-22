@@ -264,12 +264,27 @@
 
 @media (max-width: 767px) {
   .showcase-section {
-    padding: 60px 0;
+    padding: 50px 0;
+    overflow: hidden;
+  }
+
+  .showcase-grid {
+    gap: 32px;
+    margin-top: 24px;
+  }
+
+  .showcase-3d-card {
+    max-width: 100%;
+  }
+
+  .showcase-card-container {
+    perspective: none; /* Disable 3D on mobile for performance */
   }
 
   .showcase-hotspot-tooltip {
-    width: 180px;
+    width: 160px;
     padding: 10px;
+    font-size: 11px;
   }
 
   .showcase-hotspot-tooltip h4 {
@@ -280,8 +295,18 @@
     font-size: 10px;
   }
 
+  .spec-item {
+    gap: 14px;
+  }
+
+  .spec-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
   .spec-content h3 {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .spec-content p {
@@ -290,6 +315,10 @@
 
   .showcase-cta {
     align-self: stretch;
+  }
+
+  .showcase-cta .btn {
+    width: 100%;
     justify-content: center;
   }
 }
