@@ -14,7 +14,7 @@ const IS_DEV       = process.env.NODE_ENV !== "production";
 const PROD_ORIGINS = [
   "https://pahulassociates.com",
   "https://www.pahulassociates.com",
-  "https://pahul-associates.netlify.app",
+  "https://pahul-associates.vercel.app",
 ];
 
 // ── App Setup ──────────────────────────────────────────────────────────────
