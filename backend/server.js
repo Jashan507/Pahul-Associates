@@ -165,6 +165,25 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
+app.get("/api/test-email", async (_req, res) => {
+  try {
+    if (!mailTransporter) {
+      return res.status(500).json({ success: false, error: "Mailer not configured" });
+    }
+    const info = await mailTransporter.sendMail({
+      from: process.env.EMAIL_USER
+        ? `"Pahul Associates test" <${process.env.EMAIL_USER}>`
+        : '"Pahul Associates test" <noreply@pahulassociates.com>',
+      to: process.env.EMAIL_TO || "pahulassociates03@gmail.com",
+      subject: "Render Backend SMTP Verification",
+      text: "Testing email dispatch from live Render environment.",
+    });
+    res.json({ success: true, messageId: info.messageId });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message, stack: err.stack });
+  }
+});
+
 app.post("/api/inquiries", async (req, res) => {
   try {
     const { fullName, email, phoneNumber, serviceOfInterest, projectBudget, message } = req.body;
