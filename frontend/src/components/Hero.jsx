@@ -75,45 +75,20 @@ const StatCounter = ({ target, suffix }) => {
 };
 
 /* ── Hero Component ─────────────────────────────────────────────── */
-const Hero = ({ onAnimationComplete, headerLogoRef }) => {
+const Hero = ({ onAnimationComplete }) => {
   const [phase, setPhase] = useState("logo"); // logo | transition | hero
-  const logoWrapRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => startTransition(), 1500);
+    const timer = setTimeout(() => startTransition(), 3200);
     return () => clearTimeout(timer);
   }, []);
 
   const startTransition = () => {
-    // Measure the header logo position before starting
-    if (logoWrapRef.current && headerLogoRef?.current) {
-      const target = headerLogoRef.current.getBoundingClientRect();
-      const source = logoWrapRef.current.getBoundingClientRect();
-
-      // The animated logo's center vs target's center
-      const sourceCenterX = source.left + source.width / 2;
-      const sourceCenterY = source.top + source.height / 2;
-      const targetCenterX = target.left + target.width / 2;
-      const targetCenterY = target.top + target.height / 2;
-
-      // Scale factor: target logo height vs source logo height
-      const scaleTarget = target.height / source.height;
-
-      // Translation needed (in current scale coords)
-      const dx = targetCenterX - sourceCenterX;
-      const dy = targetCenterY - sourceCenterY;
-
-      // Apply via CSS custom properties on the element
-      logoWrapRef.current.style.setProperty("--fly-x", `${dx}px`);
-      logoWrapRef.current.style.setProperty("--fly-y", `${dy}px`);
-      logoWrapRef.current.style.setProperty("--fly-scale", scaleTarget);
-    }
-
     setPhase("transition");
     setTimeout(() => {
       setPhase("hero");
       if (onAnimationComplete) onAnimationComplete();
-    }, 700);
+    }, 900);
   };
 
   return (
@@ -125,10 +100,7 @@ const Hero = ({ onAnimationComplete, headerLogoRef }) => {
           <div className="blueprint-grid" aria-hidden="true" />
 
           {/* Animated Logo – transparent, layered above grid */}
-          <div
-            ref={logoWrapRef}
-            className={`logo-anim-wrap ${phase === "transition" ? "fly-to-header" : ""}`}
-          >
+          <div className={`logo-anim-wrap ${phase === "transition" ? "fly-to-header" : ""}`}>
             {/* Glow ring behind mark */}
             <div className="logo-glow-ring" aria-hidden="true" />
 
@@ -146,7 +118,7 @@ const Hero = ({ onAnimationComplete, headerLogoRef }) => {
       )}
 
       {/* ── Hero Content ── */}
-      <div className={`hero-content ${phase === "transition" || phase === "hero" ? "visible" : ""}`}>
+      <div className={`hero-content ${phase === "hero" ? "visible" : ""}`}>
         {/* Background Video */}
         <div className="hero-bg">
           <video autoPlay muted loop playsInline className="hero-bg-video">
