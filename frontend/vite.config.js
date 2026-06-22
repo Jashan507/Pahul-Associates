@@ -5,9 +5,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    strictPort: false, // auto-picks next free port if 5173 is busy
     open: true,
     watch: {
       ignored: ['**/src/assets/videos/**', '**/*.mp4', '**/*.webm', '**/*.mov'],
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
   build: {
