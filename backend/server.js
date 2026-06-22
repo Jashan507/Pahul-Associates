@@ -99,6 +99,9 @@ const initMailTransporter = async () => {
       port,
       secure,
       auth: { user, pass },
+      connectionTimeout: 10000, // 10 seconds timeout
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     });
     console.log(`Mail transporter initialized using SMTP (${host}:${port})`);
   } else {
@@ -114,6 +117,9 @@ const initMailTransporter = async () => {
           user: testAccount.user,
           pass: testAccount.pass,
         },
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 10000,
       });
       console.log("Ethereal test mailer initialized successfully.");
       console.log("Test emails can be previewed at the URL provided in server logs upon submission.");
