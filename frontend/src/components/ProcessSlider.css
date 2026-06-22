@@ -6,7 +6,7 @@
 .process-section-wrapper {
   position: relative;
   background: var(--navy-dark);
-  height: 400vh;
+  height: 300vh;
   overflow: visible;
   z-index: 1;
 }
@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-top: 16px;
+  padding-top: 90px; /* Clear the 80px fixed header */
   padding-bottom: 16px;
   justify-content: center;
   gap: 0;
@@ -361,7 +361,7 @@
 @media (max-width: 767px) {
   /* Reduce sticky scroll track on mobile */
   .process-section-wrapper {
-    height: 250vh;
+    height: 240vh;
   }
 
   .process-track-label {
@@ -474,7 +474,7 @@
   }
 
   .process-sticky-container .container {
-    padding-top: 12px;
+    padding-top: 65px; /* Clear the 52px mobile fixed header */
     padding-bottom: 12px;
     gap: 0;
   }

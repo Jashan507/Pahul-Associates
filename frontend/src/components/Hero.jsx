@@ -76,31 +76,33 @@ const StatCounter = ({ target, suffix }) => {
 
 /* ── Hero Component ─────────────────────────────────────────────── */
 const Hero = ({ onAnimationComplete }) => {
-  const [phase, setPhase] = useState("logo"); // logo | transition | hero
+  // phases: "logo" → "burst" → "hero"
+  const [phase, setPhase] = useState("logo");
 
   useEffect(() => {
-    const timer = setTimeout(() => startTransition(), 3200);
+    // Show logo for 1.6s, then trigger the exit glow + fade transition (800ms)
+    const timer = setTimeout(() => {
+      setPhase("burst");
+      // After the burst transition (800ms), switch fully to hero view
+      setTimeout(() => {
+        setPhase("hero");
+        if (onAnimationComplete) onAnimationComplete();
+      }, 800);
+    }, 1600);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const startTransition = () => {
-    setPhase("transition");
-    setTimeout(() => {
-      setPhase("hero");
-      if (onAnimationComplete) onAnimationComplete();
-    }, 900);
-  };
 
   return (
     <section id="home" className="hero-section">
       {/* ── Logo Animation Overlay ── */}
-      {(phase === "logo" || phase === "transition") && (
-        <div className={`logo-overlay ${phase === "transition" ? "fade-out" : ""}`}>
+      {(phase === "logo" || phase === "burst") && (
+        <div className={`logo-overlay ${phase === "burst" ? "burst-out" : ""}`}>
           {/* Blueprint grid – decorative, sits behind the logo */}
           <div className="blueprint-grid" aria-hidden="true" />
 
-          {/* Animated Logo – transparent, layered above grid */}
-          <div className={`logo-anim-wrap ${phase === "transition" ? "fly-to-header" : ""}`}>
+          {/* Central logo group */}
+          <div className={`logo-anim-wrap ${phase === "burst" ? "logo-burst" : ""}`}>
             {/* Glow ring behind mark */}
             <div className="logo-glow-ring" aria-hidden="true" />
 
@@ -118,7 +120,7 @@ const Hero = ({ onAnimationComplete }) => {
       )}
 
       {/* ── Hero Content ── */}
-      <div className={`hero-content ${phase === "hero" ? "visible" : ""}`}>
+      <div className={`hero-content ${phase === "burst" || phase === "hero" ? "visible" : ""}`}>
         {/* Background Video */}
         <div className="hero-bg">
           <video autoPlay muted loop playsInline className="hero-bg-video">

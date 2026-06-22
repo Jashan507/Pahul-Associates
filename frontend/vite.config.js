@@ -6,6 +6,9 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true,
+    watch: {
+      ignored: ['**/src/assets/videos/**', '**/*.mp4', '**/*.webm', '**/*.mov'],
+    },
   },
   build: {
     assetsInlineLimit: 0, // Never inline videos

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./index.css";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -14,9 +14,9 @@ import WhatsAppButton from "./components/WhatsAppButton";
 function App() {
   const [headerVisible, setHeaderVisible] = useState(false);
 
-  const handleAnimationComplete = () => {
+  const handleAnimationComplete = useCallback(() => {
     setHeaderVisible(true);
-  };
+  }, []);
 
   return (
     <>
