@@ -167,6 +167,29 @@ app.get("/api/health", (_req, res) => {
 
 app.get("/api/test-email", async (_req, res) => {
   try {
+    if (process.env.RESEND_API_KEY) {
+      console.log("Testing Resend API...");
+      const resendRes = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Pahul Associates test <onboarding@resend.dev>",
+          to: process.env.EMAIL_TO || "pahulassociates03@gmail.com",
+          subject: "Render Backend Resend API Verification",
+          html: "<p>Testing email dispatch from live Render environment via Resend API.</p>",
+        }),
+      });
+      const resendData = await resendRes.json();
+      if (resendRes.ok) {
+        return res.json({ success: true, provider: "Resend", messageId: resendData.id });
+      } else {
+        return res.status(500).json({ success: false, provider: "Resend", error: resendData });
+      }
+    }
+
     if (!mailTransporter) {
       return res.status(500).json({ success: false, error: "Mailer not configured" });
     }
@@ -178,7 +201,7 @@ app.get("/api/test-email", async (_req, res) => {
       subject: "Render Backend SMTP Verification",
       text: "Testing email dispatch from live Render environment.",
     });
-    res.json({ success: true, messageId: info.messageId });
+    res.json({ success: true, provider: "SMTP", messageId: info.messageId });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message, stack: err.stack });
   }
@@ -213,18 +236,53 @@ app.post("/api/inquiries", async (req, res) => {
 
     // Send email
     const mailOptions = buildMailOptions({ fullName, email, phoneNumber, serviceOfInterest, projectBudget, message });
-    if (mailTransporter) {
+    let emailSent = false;
+
+    // Try Resend API first if RESEND_API_KEY is configured
+    if (process.env.RESEND_API_KEY) {
       try {
-        const info = await mailTransporter.sendMail(mailOptions);
-        console.log("📧 Email sent:", info.messageId);
-        const previewUrl = nodemailer.getTestMessageUrl(info);
-        if (previewUrl) console.log("🔗 Preview:", previewUrl);
-      } catch (mailErr) {
-        console.error("Email failed:", mailErr.message);
+        console.log("Using Resend API to dispatch email...");
+        const resendRes = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "Pahul Associates Web <onboarding@resend.dev>",
+            to: EMAIL_TO,
+            subject: mailOptions.subject,
+            html: mailOptions.html,
+          }),
+        });
+
+        const resendData = await resendRes.json();
+        if (resendRes.ok) {
+          console.log("📧 Email sent via Resend:", resendData.id);
+          emailSent = true;
+        } else {
+          console.error("Resend API failed:", resendData);
+        }
+      } catch (resendErr) {
+        console.error("Resend connection failed:", resendErr.message);
+      }
+    }
+
+    // Fallback to Nodemailer SMTP/Ethereal if Resend wasn't used or failed
+    if (!emailSent) {
+      if (mailTransporter) {
+        try {
+          const info = await mailTransporter.sendMail(mailOptions);
+          console.log("📧 Email sent via SMTP:", info.messageId);
+          const previewUrl = nodemailer.getTestMessageUrl(info);
+          if (previewUrl) console.log("🔗 Preview:", previewUrl);
+        } catch (mailErr) {
+          console.error("Email failed via SMTP:", mailErr.message);
+          logEmail(mailOptions);
+        }
+      } else {
         logEmail(mailOptions);
       }
-    } else {
-      logEmail(mailOptions);
     }
 
     res.json({ success: true, message: "Inquiry submitted successfully", inquiryId });
