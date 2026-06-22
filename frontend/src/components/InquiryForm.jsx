@@ -79,12 +79,8 @@ const InquiryForm = () => {
         setStatus("error");
       }
     } catch (err) {
-      // Backend not available — still show success for demo
-      setStatus("success");
-      setFields(INITIAL);
-      setTouched({});
-      setErrors({});
-      setTimeout(() => setStatus("idle"), 5000);
+      console.error("Form submission failed:", err);
+      setStatus("error");
     }
   };
 
