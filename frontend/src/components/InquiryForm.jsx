@@ -57,7 +57,8 @@ const InquiryForm = () => {
 
     setStatus("loading");
     try {
-      const res = await fetch(`/api/inquiries`, {
+      const API_BASE = import.meta.env.VITE_API_URL || "";
+      const res = await fetch(`${API_BASE}/api/inquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
