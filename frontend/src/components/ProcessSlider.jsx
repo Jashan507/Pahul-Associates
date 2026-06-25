@@ -5,17 +5,18 @@ import "./ProcessSlider.css";
 
 // Step 1 Visual: Consultation
 const ConsultationVisual = () => {
+  const uid = React.useId().replace(/:/g, "-");
   return (
     <div className="process-visual-wrapper consultation-visual">
       <svg viewBox="0 0 400 400" className="process-svg">
         <defs>
-          <pattern id="blueprint-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id={`bp-grid-${uid}`} width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" />
           </pattern>
         </defs>
         
         {/* Background Grid */}
-        <rect width="100%" height="100%" fill="url(#blueprint-grid)" rx="16" />
+        <rect width="100%" height="100%" fill={`url(#bp-grid-${uid})`} rx="16" />
         
         {/* Drafting layout circle */}
         <motion.circle
@@ -100,15 +101,16 @@ const ConsultationVisual = () => {
 
 // Step 2 Visual: Design Development
 const DesignVisual = () => {
+  const uid = React.useId().replace(/:/g, "-");
   return (
     <div className="process-visual-wrapper design-visual">
       <svg viewBox="0 0 400 400" className="process-svg">
         <defs>
-          <pattern id="blueprint-grid-2" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id={`bp-grid-${uid}`} width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#blueprint-grid-2)" rx="16" />
+        <rect width="100%" height="100%" fill={`url(#bp-grid-${uid})`} rx="16" />
         
         {/* Rotating Coordinate ring */}
         <motion.circle
@@ -225,15 +227,16 @@ const DesignVisual = () => {
 
 // Step 3 Visual: Approvals & Planning
 const ApprovalsVisual = () => {
+  const uid = React.useId().replace(/:/g, "-");
   return (
     <div className="process-visual-wrapper approvals-visual">
       <svg viewBox="0 0 400 400" className="process-svg">
         <defs>
-          <pattern id="blueprint-grid-3" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id={`bp-grid-${uid}`} width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#blueprint-grid-3)" rx="16" />
+        <rect width="100%" height="100%" fill={`url(#bp-grid-${uid})`} rx="16" />
         
         {/* Document sheet */}
         <motion.g
@@ -304,15 +307,16 @@ const ApprovalsVisual = () => {
 
 // Step 4 Visual: Execution & Handover
 const ExecutionVisual = () => {
+  const uid = React.useId().replace(/:/g, "-");
   return (
     <div className="process-visual-wrapper execution-visual">
       <svg viewBox="0 0 400 400" className="process-svg">
         <defs>
-          <pattern id="blueprint-grid-4" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id={`bp-grid-${uid}`} width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#blueprint-grid-4)" rx="16" />
+        <rect width="100%" height="100%" fill={`url(#bp-grid-${uid})`} rx="16" />
         
         {/* Completed Villa outline */}
         <g transform="translate(0, 15)">
